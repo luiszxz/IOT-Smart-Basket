@@ -45,18 +45,15 @@ You must have Python 3.8+ installed. The project also requires a set of external
 
 2. Dependencies
 Install all necessary Python libraries using pip:
-
-pip install customtkinter pillow qrcode firebase-admin opencv-python pyzbar
+`pip install customtkinter pillow qrcode firebase-admin opencv-python pyzbar`
 
 Firebase Configuration
 The firestore_py.py file requires a secure connection to your Firebase project.
 - Get Service Account Key: In your Firebase console, go to Project Settings > Service accounts.
 - Click Generate new private key and download the JSON file.
 - Rename and Place: Place this downloaded JSON file in the project root directory and ensure its name matches the path used in firestore_py.py:
-
-cred = credentials.Certificate("smart-basket-90f82-firebase-adminsdk-jns92-99b59e40f0.json")
+`cred = credentials.Certificate("smart-basket-90f82-firebase-adminsdk-jns92-99b59e40f0.json")`
 
 Running the Application
 Execute the main GUI file to start the system:
-
-python smart_basket_gui.py
+`python smart_basket_gui.py`
