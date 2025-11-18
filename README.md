@@ -59,4 +59,4 @@ The firestore_py.py file requires a secure connection to your Firebase project.
 Running the Application
 Execute the main GUI file to start the system:
 
-`python smart_basket_gui.py`
+`python main.py`
