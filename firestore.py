@@ -1,4 +1,4 @@
-# OpenCV (cv2) and Pyzbar are used for camera access and barcode scanning,
+# OpenCV (cv2) and Pyzbar are used for camera access and rfid scanning,
 # but they are commented out for testing in environments without a physical camera.
 # import cv2
 # import pyzbar.pyzbar as pyzbar
@@ -36,16 +36,16 @@ except Exception as e:
     # to prevent the app from crashing.
 
 
-# Barcode Scanning Logic (Currently Mocked)
-def scan_barcode():
+# rfid Scanning Logic (Currently Mocked)
+def scan_rfid():
     """
-    Attempts to scan a barcode using the webcam (cv2).
+    Attempts to scan a rfid using the webcam (cv2).
 
     In this current version, the webcam logic is commented out, and a
     hardcoded ID is returned for testing the Firestore lookup functionality.
 
     Returns:
-        str or None: The barcode data string (e.g., product ID) if found,
+        str or None: The rfid data string (e.g., product ID) if found,
                      otherwise returns None.
     """
 
@@ -57,42 +57,42 @@ def scan_barcode():
     #
     # ret, frame = cap.read() # Capture a single frame
     # if ret:
-    #     barcodes = pyzbar.decode(frame) # Decode barcodes in the frame
-    #     for barcode in barcodes:
-    #         barcode_data = barcode.data.decode("utf-8")
+    #     rfids = pyzbar.decode(frame) # Decode rfids in the frame
+    #     for rfid in rfids:
+    #         rfid_data = rfid.data.decode("utf-8")
     #         cap.release() # Release the camera hardware
     #         cv2.destroyAllWindows()
-    #         return barcode_data
+    #         return rfid_data
     #
     # cap.release()
     # cv2.destroyAllWindows()
 
     # MOCKED DATA FOR TESTING
-    print("--- Simulating Barcode Scan ---")
-    barcode_data = "rtSK21qfunPHD9CFULuu"  # Hardcoded ID corresponding to a Firestore document
-    return barcode_data
+    print("--- Simulating rfid Scan ---")
+    rfid_data = "rtSK21qfunPHD9CFULuu"  # Hardcoded ID corresponding to a Firestore document
+    return rfid_data
     # return None # Uncomment to test failure case
 
 
 def sample():
     """
-    Provides a different sample barcode data for alternative testing.
+    Provides a different sample rfid data for alternative testing.
 
     Returns:
-        str: A sample barcode string.
+        str: A sample rfid string.
     """
-    print("Simulating Secondary Barcode Scan")
-    barcode_data1 = "15235253435"  # Example of a non-existent/different product ID
-    return barcode_data1
+    print("Simulating Secondary rfid Scan")
+    rfid_data1 = "15235253435"  # Example of a non-existent/different product ID
+    return rfid_data1
 
 
 # Firestore Data Retrieval
 def get_product_info(data):
     """
-    Retrieves product information from Firestore based on the barcode data (document ID).
+    Retrieves product information from Firestore based on the rfid data (document ID).
 
     Args:
-        data (str): The barcode data, which is used as the Firestore document ID.
+        data (str): The rfid data, which is used as the Firestore document ID.
 
     Returns:
         tuple (str, float) or (None, None): A tuple containing (itemName, itemPrice)
@@ -100,7 +100,7 @@ def get_product_info(data):
     """
     print(f"Attempting to look up product with ID: {data}")
     try:
-        # Get the specific document using the barcode data as the ID.
+        # Get the specific document using the rfid data as the ID.
         query = doc_ref.document(data).get()
     except Exception as e:
         print(f"Firestore query failed: {e}")
@@ -122,12 +122,12 @@ def get_product_info(data):
 if __name__ == "__main__":
     # The main block executes when the script is run directly.
 
-    # Simulate the primary barcode scan
-    barcode = scan_barcode()
+    # Simulate the primary rfid scan
+    rfid = scan_rfid()
 
-    if barcode:
-        # Look up the product info using the scanned barcode
-        name, price = get_product_info(barcode)
+    if rfid:
+        # Look up the product info using the scanned rfid
+        name, price = get_product_info(rfid)
 
         if name and price:
             print("\n--- SUCCESSFULLY SCANNED PRODUCT ---")
@@ -139,4 +139,4 @@ if __name__ == "__main__":
         else:
             print("\nProduct lookup failed. The ID may not exist in the database.")
     else:
-        print("\nBarcode scanning failed. No data was captured.")
+        print("\nrfid scanning failed. No data was captured.")
