@@ -8,7 +8,7 @@ import customtkinter
 
 # Import the backend logic from the separate file
 import firestore
-from firestore import scan_barcode, get_product_info
+from firestore import scan_rfid, get_product_info
 
 # --- IMPORTANT SETUP NOTES ---
 # 1. This script requires a local image file named 'savers.png' for the logo.
@@ -156,7 +156,7 @@ def auto_scan():
     Starts the continuous scanning thread and defines the callback for updates.
     """
 
-    # The callback function called by the threaded scanner (firestore_py.scan_barcode)
+    # The callback function called by the threaded scanner (firestore_py.scan_rfid)
     def update_display_from_scan(product, tag):
         """Processes a single scan event (add or remove) and updates the basket state."""
         global items
@@ -203,9 +203,9 @@ def auto_scan():
         # Update the display using the aggregated item names and quantities
         root.after(0, lambda: update_display(aggregate_items))
 
-    # Start barcode scanning in a separate, non-blocking thread
-    # The scan_barcode function needs to be passed the callback.
-    scanning_thread = threading.Thread(target=scan_barcode, args=(update_display_from_scan,))
+    # Start rfid scanning in a separate, non-blocking thread
+    # The scan_rfid function needs to be passed the callback.
+    scanning_thread = threading.Thread(target=scan_rfid, args=(update_display_from_scan,))
     scanning_thread.daemon = True  # Allows the thread to exit when the main program does
     scanning_thread.start()
 
